@@ -1,35 +1,26 @@
-package com.example.engine;
+package com.example.engine.components;
 
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
-public class EngineCore {
+import androidx.annotation.Nullable;
+
+import com.example.engine.nodes.Node2D;
+
+public class Component {
 
     /* ================================
     VARIABLES
     ================================ */
 
-    //
+    public @Nullable Node2D parent = null;
 
 
     /* ================================
     CONSTRUCTEURS
     ================================ */
 
-    //
-    EngineCore() {
-        setup();
-    }
-
-
-    /* ================================
-    METHODES
-    ================================ */
-
-    //
-    private void setup() {
-        //
-    }
+    Component() {}
 
 
     /* ================================
@@ -37,9 +28,7 @@ public class EngineCore {
     ================================ */
 
     //
-    public void onTouchEvent(MotionEvent event) {
-        //
-    }
+    public boolean onTouchEvent(MotionEvent event) {return false;}
 
 
     /* ================================
@@ -47,9 +36,7 @@ public class EngineCore {
     ================================ */
 
     //
-    public void update(float delta) {
-        //
-    }
+    public void update(float deltaTime) {}
 
 
     /* ================================
@@ -57,7 +44,5 @@ public class EngineCore {
     ================================ */
 
     //
-    public void render(Canvas canvas) {
-        //
-    }
+    public void render(Canvas canvas) {}
 }

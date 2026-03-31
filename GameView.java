@@ -68,9 +68,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {}
 
     //
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         game.onTouchEvent(event);
+        performClick();
         return true;
     }
 
@@ -86,7 +88,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 
     /* ================================
-    DRAW
+    RENDER
     ================================ */
 
     //
