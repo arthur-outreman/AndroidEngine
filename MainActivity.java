@@ -1,4 +1,4 @@
-package com.example.androidengine;
+package com.example.engine;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(new GameView(this));
     }

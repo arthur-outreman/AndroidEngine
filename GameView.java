@@ -1,4 +1,4 @@
-package com.example.androidengine;
+package com.example.engine;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,58 +9,88 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback{
-    private MainThread thread;
-    private Processing game;
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
+    /* ================================
+    VARIABLES
+    ================================ */
+
+    private MainThread thread;
+    private EngineCore game;
+
+
+    /* ================================
+    CONSTRUCTEURS
+    ================================ */
+
+    //
     public GameView(Context context) {
         super(context);
 
         getHolder().addCallback(this);
-        thread = new MainThread(getHolder(), this);
         setFocusable(true);
 
-        this.game = new Processing();
+        game = new EngineCore();
     }
 
-    @Override
-    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
 
-    }
+    /* ================================
+    METHODES
+    ================================ */
 
+    //
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
+        thread = new MainThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
     }
 
+    //
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
         boolean retry = true;
+
+        thread.setRunning(false);
+
         while (retry) {
             try {
-                thread.setRunning(false);
                 thread.join();
+                retry = false;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            retry = false;
         }
     }
 
+    //
     @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
-        if (canvas != null) {
-            game.draw(canvas);
-        }
-    }
+    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {}
 
-    @SuppressLint("ClickableViewAccessibility")
+    //
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         game.onTouchEvent(event);
-        return super.onTouchEvent(event);
+        return true;
     }
 
+
+    /* ================================
+    UPDATE
+    ================================ */
+
+    //
+    public void update(float deltaTime) {
+        game.update(deltaTime);
+    }
+
+
+    /* ================================
+    DRAW
+    ================================ */
+
+    //
+    public void render(Canvas canvas) {
+        game.render(canvas);
+    }
 }
