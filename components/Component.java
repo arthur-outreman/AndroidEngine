@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 
 import androidx.annotation.Nullable;
 
+import com.example.engine.Graphics;
 import com.example.engine.nodes.Node2D;
 
 public class Component {
@@ -44,5 +45,5 @@ public class Component {
     ================================ */
 
     //
-    public void render(Canvas canvas) {}
+    public void render(Canvas canvas, Graphics graphics) {}
 }

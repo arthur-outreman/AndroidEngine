@@ -5,8 +5,10 @@ import android.view.MotionEvent;
 
 import androidx.annotation.Nullable;
 
+import com.example.engine.Graphics;
 import com.example.engine.components.Component;
 import com.example.engine.dataTypes.Angle;
+import com.example.engine.dataTypes.Transform;
 import com.example.engine.dataTypes.Vect2;
 
 import java.util.ArrayList;
@@ -22,8 +24,7 @@ public class Node2D {
     public ArrayList<Component> components;
     public ArrayList<String> groups;
 
-    public Vect2 position;
-    public Angle rotation;
+    public Transform transform;
 
 
     /* ================================
@@ -31,23 +32,22 @@ public class Node2D {
     ================================ */
 
     //
-    Node2D() {
+    public Node2D() {
         children = new ArrayList<>();
         components = new ArrayList<>();
         groups = new ArrayList<>();
 
-        position = Vect2.ZERO();
-        rotation = Angle.ZERO();
+        transform = Transform.ZERO();
+
     }
 
     //
-    Node2D(Vect2 position) {
+    public Node2D(Vect2 position) {
         children = new ArrayList<>();
         components = new ArrayList<>();
         groups = new ArrayList<>();
 
-        this.position = position;
-        rotation = Angle.ZERO();
+        transform = new Transform(position, Angle.ZERO());
     }
 
 
@@ -59,6 +59,16 @@ public class Node2D {
         if(parent != null) parent.removeChild(this);
         parent = null;
     }
+
+    // TRANSFORM
+
+    //
+
+    public Transform getGlobalTransform() {
+        if(parent != null) return Transform.SUM(transform, parent.getGlobalTransform());
+        return transform;
+    }
+
 
     // CHILDREN
 
@@ -152,22 +162,22 @@ public class Node2D {
     ================================ */
 
     //
-    public void renderChildren(Canvas canvas) {
+    public void renderChildren(Canvas canvas, Graphics graphics) {
         for(int i=0; i<children.size(); i++) {
-            children.get(i).render(canvas);
+            children.get(i).render(canvas, graphics);
         }
     }
 
     //
-    public void renderSelf(Canvas canvas) {
+    public void renderSelf(Canvas canvas, Graphics graphics) {
         for(int i=0; i<components.size(); i++) {
-            components.get(i).render(canvas);
+            components.get(i).render(canvas, graphics);
         }
     }
 
     //
-    public void render(Canvas canvas) {
-        renderSelf(canvas);
-        renderChildren(canvas);
+    public void render(Canvas canvas, Graphics graphics) {
+        renderSelf(canvas, graphics);
+        renderChildren(canvas, graphics);
     }
 }

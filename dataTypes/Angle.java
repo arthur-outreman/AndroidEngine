@@ -12,14 +12,18 @@ public class Angle {
 
     public float angle;
 
+    public float cos;
+    public float sin;
+
 
     /* ================================
     CONSTRUCTEURS
     ================================ */
 
     //
-    Angle(float angleDegree) {
-        this.angle = angleDegree;
+    public Angle(float angleDegree) {
+        angle = angleDegree;
+        normalize();
     }
 
 
@@ -34,15 +38,36 @@ public class Angle {
         return new Angle(0f);
     }
 
+    //
+    @NonNull
+    @Contract("_, _ -> new")
+    public static Angle SUM(Angle a1, Angle a2) {
+        return new Angle(a1.angle + a2.angle);
+    }
+
 
     /* ================================
     METHODES
     ================================ */
 
     //
+    private void calculateTrigo() {
+        float rad = (float) Math.toRadians(angle);
+        cos = (float) Math.cos(rad);
+        sin = (float) Math.sin(rad);
+    }
+
+    //
     private void normalize() {
         if(angle < -360f) angle += 360f;
         if(angle > 360f) angle -= 360f;
+        calculateTrigo();
+    }
+
+    //
+    public void rotate(float angleDegree) {
+        angle += angleDegree;
+        normalize();
     }
 
     //

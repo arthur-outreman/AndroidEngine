@@ -18,7 +18,7 @@ public class Vect2 {
     ================================ */
 
     //
-    Vect2(float x, float y) {
+    public Vect2(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -38,8 +38,25 @@ public class Vect2 {
     //
     @NonNull
     @Contract("_, _ -> new")
-    public static Vect2 translation(Vect2 v1, Vect2 v2) {
+    public static Vect2 TRANSLATION(Vect2 v1, Vect2 v2) {
         return new Vect2(v2.x - v1.x, v2.y - v1.y);
+    }
+
+    //
+    @NonNull
+    @Contract("_, _ -> new")
+    public static Vect2 SUM(Vect2 v1, Vect2 v2) {
+        return new Vect2(v1.x + v2.x, v1.y + v2.y);
+    }
+
+    //
+    @NonNull
+    @Contract("_, _, _ -> new")
+    public static Vect2 ROTATION(Vect2 v, Vect2 pivot, Angle rotation) {
+        return new Vect2(
+                (v.x - pivot.x) * rotation.cos - (v.y - pivot.y) * rotation.sin + pivot.x,
+                (v.x - pivot.x) * rotation.sin + (v.y - pivot.y) * rotation.cos + pivot.y
+        );
     }
 
 
@@ -63,6 +80,17 @@ public class Vect2 {
     public void scalar(float k) {
         x *= k;
         y *= k;
+    }
+
+    public void rotate(Vect2 pivot, Angle rotation) {
+        float dx = x - pivot.x;
+        float dy = y - pivot.y;
+
+        float newX = dx * rotation.cos - dy * rotation.sin + pivot.x;
+        float newY = dx * rotation.sin + dy * rotation.cos + pivot.y;
+
+        x = newX;
+        y = newY;
     }
 
     //
