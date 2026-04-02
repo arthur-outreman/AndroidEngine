@@ -15,13 +15,25 @@ public class Component {
     ================================ */
 
     public @Nullable Node2D parent = null;
+    public String name = "";
 
 
     /* ================================
     CONSTRUCTEURS
     ================================ */
 
+    //
     Component() {}
+
+
+    /* ================================
+    SIGNAL
+    ================================ */
+
+    //
+    public void signal(String signal) {
+        if(parent != null) parent.signal(signal, name);
+    }
 
 
     /* ================================

@@ -73,6 +73,12 @@ public class Angle {
     ================================ */
 
     //
+    public void rotate(float f) {
+        angle += f;
+        normalize();
+    }
+
+    //
     private void calculateTrigo() {
         float rad = (float) Math.toRadians(angle);
         cos = (float) Math.cos(rad);
@@ -81,8 +87,7 @@ public class Angle {
 
     //
     private void normalize() {
-        if(angle < -360f) angle += 360f;
-        if(angle > 360f) angle -= 360f;
+        angle = angle % 360f;
         calculateTrigo();
     }
 

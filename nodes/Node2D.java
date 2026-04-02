@@ -56,6 +56,11 @@ public class Node2D {
     ================================ */
 
     //
+    public Node2D getTree() {
+        return (parent==null)? this:parent.getTree();
+    }
+
+    //
     public void queueFree() {
         inQueueToDeletion = true;
     }
@@ -116,6 +121,14 @@ public class Node2D {
 
 
     /* ================================
+    SIGNAL
+    ================================ */
+
+    //
+    public void signal(String signal, String name) {}
+
+
+    /* ================================
     EVENT
     ================================ */
 
@@ -143,15 +156,19 @@ public class Node2D {
     }
 
     //
-    public void updateSelf(float deltaTime) {
+    public void updateComponents(float deltaTime) {
         for(int i=0; i<components.size(); i++) {
             components.get(i).update(deltaTime);
         }
     }
 
     //
+    public void updateSelf(float deltaTime) {}
+
+    //
     public void update(float deltaTime) {
         updateSelf(deltaTime);
+        updateComponents(deltaTime);
         updateChildren(deltaTime);
     }
 

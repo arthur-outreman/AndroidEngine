@@ -4,8 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
 
+import com.example.engine.components.VisualShapeComponent;
 import com.example.engine.dataTypes.Vect2;
 import com.example.engine.nodes.Node2D;
+import com.example.engine.shapes.Shape2D;
 
 public class EngineCore {
 
@@ -42,7 +44,7 @@ public class EngineCore {
 
         // SCENES SETUP
         scenesList = new Node2D[1]; // <- Nb of scenes
-        for(int i=0; i<scenesList.length; i++) scenesList[i] = new Node2D(new Vect2(200f, 400f));
+        for(int i=0; i<scenesList.length; i++) scenesList[i] = new Node2D(new Vect2(0f, 0f));
 
         // OTHER
         //
@@ -55,6 +57,7 @@ public class EngineCore {
 
     //
     public void onTouchEvent(MotionEvent event) {
+        scenesList[actualScene].onTouchEvent(event);
         //
     }
 

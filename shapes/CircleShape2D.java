@@ -16,6 +16,7 @@ public class CircleShape2D extends Shape2D {
 
     public Vect2 center, transformedCenter;
     public float radius;
+    public Rect2D approximateRect;
 
 
     /* ================================
@@ -27,6 +28,15 @@ public class CircleShape2D extends Shape2D {
         this.radius = rayon;
         center = new Vect2(rayon, rayon);
         transformedCenter = new Vect2(rayon, rayon);
+        generateApproximateRect(Transform.ZERO());
+    }
+
+    //
+    public CircleShape2D(float rayon, boolean centered) {
+        this.radius = rayon;
+        center = centered? new Vect2(rayon, rayon):Vect2.ZERO();
+        transformedCenter = centered? new Vect2(rayon, rayon):Vect2.ZERO();
+        generateApproximateRect(Transform.ZERO());
     }
 
 
@@ -35,20 +45,38 @@ public class CircleShape2D extends Shape2D {
     ================================ */
 
     //
-    @Override
-    public Rect2D getApproximateRect(Transform t) {
-        generateTransform(t);
+    private void generateApproximateRect(Transform t) {
+        Vect2 position = new Vect2(
+                transformedCenter.x - radius,
+                transformedCenter.y - radius
+        );
+        Vect2 size = new Vect2(radius * 2, radius * 2);
 
-        Vect2 position = new Vect2(t.position.x, t.position.y);
-        Vect2 size = new Vect2(radius *2, radius *2);
-
-        return new Rect2D(position, size);
+        approximateRect = new Rect2D(position, size);
     }
 
     //
     private void generateTransform(Transform t) {
         if(!dirty(t)) return;
         transformedCenter = Vect2.SUM(center, t.position);
+        generateApproximateRect(t);
+    }
+
+    //
+    @Override
+    public Rect2D getApproximateRect(Transform t) {
+        generateTransform(t);
+
+        return approximateRect;
+    }
+
+    //
+    @Override
+    public boolean pointOnShape(Transform t, Vect2 point) {
+        generateTransform(t);
+
+        Vect2 diff = Vect2.TRANSLATION(transformedCenter, point);
+        return diff.length() <= radius;
     }
 
 

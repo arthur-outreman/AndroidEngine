@@ -1,5 +1,7 @@
 package com.example.engine.components;
 
+import android.util.Log;
+
 import com.example.engine.dataTypes.Rect2D;
 import com.example.engine.dataTypes.Transform;
 import com.example.engine.shapes.Shape2D;
@@ -10,7 +12,7 @@ public class CollisionComponent extends Component {
     VARIABLES
     ================================ */
 
-    Shape2D shape;
+    public Shape2D shape;
 
 
     /* ================================
@@ -41,7 +43,14 @@ public class CollisionComponent extends Component {
 
     //
     public boolean overlap(CollisionComponent obj) {
+        Transform t1 = (parent!=null)? parent.getGlobalTransform():Transform.ZERO();
+        Transform t2 = (obj.parent!=null)? obj.parent.getGlobalTransform():Transform.ZERO();
+
+        shape.getApproximateRect(t1);   // force update
+        obj.shape.getApproximateRect(t2);
+
         if(!approximateOverlap(obj)) return false;
-        else return shape.overlap(obj.shape);
+
+        return shape.overlap(obj.shape);
     }
 }
