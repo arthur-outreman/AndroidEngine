@@ -1,10 +1,9 @@
 package com.example.engine;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.MotionEvent;
 
-import com.example.engine.components.VisualShapeComponent;
-import com.example.engine.dataTypes.PolygonShape2D;
 import com.example.engine.dataTypes.Vect2;
 import com.example.engine.nodes.Node2D;
 
@@ -16,6 +15,10 @@ public class EngineCore {
 
     // VARIABLES ENGINE
     public Graphics graphics = new Graphics();
+
+    // SCENES
+    private Node2D[] scenesList;
+    public int actualScene = 0;
 
     // OTHER
     //
@@ -36,6 +39,12 @@ public class EngineCore {
 
     //
     private void setup() {
+
+        // SCENES SETUP
+        scenesList = new Node2D[1]; // <- Nb of scenes
+        for(int i=0; i<scenesList.length; i++) scenesList[i] = new Node2D(new Vect2(200f, 400f));
+
+        // OTHER
         //
     }
 
@@ -56,6 +65,7 @@ public class EngineCore {
 
     //
     public void update(float delta) {
+        scenesList[actualScene].update(delta);
         //
     }
 
@@ -66,7 +76,8 @@ public class EngineCore {
 
     //
     public void render(Canvas canvas) {
-        graphics.background(canvas, 255);
+        graphics.background(canvas, Color.WHITE);
+        scenesList[actualScene].render(canvas, graphics);
         //
     }
 }

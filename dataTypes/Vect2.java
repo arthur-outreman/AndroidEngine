@@ -25,7 +25,7 @@ public class Vect2 {
 
 
     /* ================================
-    NEW VECT
+    STATIC
     ================================ */
 
     //
@@ -59,38 +59,41 @@ public class Vect2 {
         );
     }
 
+    //
+    @NonNull
+    @Contract("_ -> new")
+    public static Vect2 CLONE(Vect2 v) {
+        return new Vect2(v.x, v.y);
+    }
+
+
+    /* ================================
+    NEW VECT
+    ================================ */
+
+    //
+    public Vect2 add(Vect2 v) {
+        return new Vect2(x + v.x, y + v.y);
+    }
+
+    //
+    public Vect2 sub(Vect2 v) {
+        return new Vect2(x - v.x, y - v.y);
+    }
+
+    //
+    public Vect2 perp() {
+        return new Vect2(-y, x);
+    }
+
 
     /* ================================
     METHODES
     ================================ */
 
     //
-    public void add(Vect2 v) {
-        x += v.x;
-        y += v.y;
-    }
-
-    //
-    public void sub(Vect2 v) {
-        x -= v.x;
-        y -= v.y;
-    }
-
-    //
-    public void scalar(float k) {
-        x *= k;
-        y *= k;
-    }
-
-    public void rotate(Vect2 pivot, Angle rotation) {
-        float dx = x - pivot.x;
-        float dy = y - pivot.y;
-
-        float newX = dx * rotation.cos - dy * rotation.sin + pivot.x;
-        float newY = dx * rotation.sin + dy * rotation.cos + pivot.y;
-
-        x = newX;
-        y = newY;
+    public float dot(Vect2 v) {
+        return x * v.x + y * v.y;
     }
 
     //
@@ -120,5 +123,15 @@ public class Vect2 {
             x *= scale;
             y *= scale;
         }
+    }
+
+    //
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vect2)) return false;
+
+        Vect2 v = (Vect2) o;
+        return x == v.x && y == v.y;
     }
 }

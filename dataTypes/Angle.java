@@ -28,7 +28,7 @@ public class Angle {
 
 
     /* ================================
-    NEW ANGLE
+    STATIC
     ================================ */
 
     //
@@ -43,6 +43,28 @@ public class Angle {
     @Contract("_, _ -> new")
     public static Angle SUM(Angle a1, Angle a2) {
         return new Angle(a1.angle + a2.angle);
+    }
+
+    //
+    @NonNull
+    @Contract("_ -> new")
+    public static Angle CLONE(Angle a) {
+        return new Angle(a.angle);
+    }
+
+
+    /* ================================
+    NEW ANGLE
+    ================================ */
+
+    //
+    public Angle add(Angle a) {
+        return new Angle(angle + a.angle);
+    }
+
+    //
+    public Angle sub(Angle a) {
+        return new Angle(angle - a.angle);
     }
 
 
@@ -65,26 +87,12 @@ public class Angle {
     }
 
     //
-    public void rotate(float angleDegree) {
-        angle += angleDegree;
-        normalize();
-    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Angle)) return false;
 
-    //
-    public void add(Angle a) {
-        angle += a.angle;
-        normalize();
-    }
-
-    //
-    public void sub(Angle a) {
-        angle -= a.angle;
-        normalize();
-    }
-
-    //
-    public void scalar(float k) {
-        angle *= k;
-        normalize();
+        Angle a = (Angle) o;
+        return angle == a.angle;
     }
 }

@@ -2,8 +2,8 @@ package com.example.engine;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 
 import com.example.engine.dataTypes.Vect2;
 
@@ -32,13 +32,8 @@ public class Graphics {
     ================================ */
 
     //
-    public void background(Canvas canvas, int r, int g, int b) {
-        canvas.drawColor(Color.rgb(r, g, b));
-    }
-
-    //
     public void background(Canvas canvas, int col) {
-        background(canvas, col, col, col);
+        canvas.drawColor(col);
     }
 
 
@@ -47,9 +42,30 @@ public class Graphics {
     ================================ */
 
     //
-    public void drawLine(Canvas canvas, Vect2 p1, Vect2 p2, int r, int g, int b) {
-        paint.setColor(Color.rgb(r, g, b));
-
+    public void drawLine(Canvas canvas, Vect2 p1, Vect2 p2, int col) {
+        paint.setColor(col);
         canvas.drawLine(p1.x, p1.y, p2.x, p2.y, paint);
+    }
+
+
+    /* ================================
+    DRAW PATH
+    ================================ */
+
+    //
+    public void drawPath(Canvas canvas, Path p, int col) {
+        paint.setColor(col);
+        canvas.drawPath(p, paint);
+    }
+
+
+    /* ================================
+    DRAW CIRCLE
+    ================================ */
+
+    //
+    public void drawCircle(Canvas canvas, Vect2 position, float rayon, int col) {
+        paint.setColor(col);
+        canvas.drawCircle(position.x, position.y, rayon, paint);
     }
 }
