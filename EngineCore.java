@@ -80,4 +80,14 @@ public class EngineCore {
         scenesList[actualScene].render(canvas, graphics);
         //
     }
+
+
+    /* ================================
+    CLEAN TREE
+    ================================ */
+
+    //
+    public void cleanTree() {
+        scenesList[actualScene].cleanTree();
+    }
 }

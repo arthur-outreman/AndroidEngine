@@ -95,4 +95,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void render(Canvas canvas) {
         game.render(canvas);
     }
+
+
+    /* ================================
+    CLEAN TREE
+    ================================ */
+
+    //
+    public void cleanTree() {
+        game.cleanTree();
+    }
 }

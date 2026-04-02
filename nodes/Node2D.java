@@ -19,11 +19,11 @@ public class Node2D {
     VARIABLES
     ================================ */
 
+    private boolean inQueueToDeletion = false;
     public @Nullable Node2D parent = null;
     public ArrayList<Node2D> children;
     public ArrayList<Component> components;
     public ArrayList<String> groups;
-
     public Transform transform;
 
 
@@ -55,15 +55,14 @@ public class Node2D {
     METHODES
     ================================ */
 
+    //
     public void queueFree() {
-        if(parent != null) parent.removeChild(this);
-        parent = null;
+        inQueueToDeletion = true;
     }
 
     // TRANSFORM
 
     //
-
     public Transform getGlobalTransform() {
         if(parent != null) return Transform.SUM(transform, parent.getGlobalTransform());
         return transform;
@@ -179,5 +178,20 @@ public class Node2D {
     public void render(Canvas canvas, Graphics graphics) {
         renderSelf(canvas, graphics);
         renderChildren(canvas, graphics);
+    }
+
+
+    /* ================================
+    CLEAN TREE
+    ================================ */
+
+    //
+    public void cleanTree() {
+        if(inQueueToDeletion) {
+            if(parent != null) parent.removeChild(this);
+            parent = null;
+            return;
+        }
+        for(int i=0; i< children.size(); i++) children.get(i).cleanTree();
     }
 }

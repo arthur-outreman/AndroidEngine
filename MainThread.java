@@ -59,6 +59,8 @@ public class MainThread extends Thread {
                     if (canvas != null) {
                         gameView.render(canvas);
                     }
+
+                    gameView.cleanTree();
                 }
 
             } finally {
