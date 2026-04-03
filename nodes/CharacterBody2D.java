@@ -1,6 +1,6 @@
 package com.example.engine.nodes;
 
-import com.example.engine.components.VisualShapeComponent;
+import com.example.engine.components.VisualComponent;
 import com.example.engine.dataTypes.Vect2;
 import com.example.engine.shapes.Shape2D;
 
@@ -20,7 +20,7 @@ public class CharacterBody2D extends CollisionObject2D {
     //
     public CharacterBody2D(Vect2 position, Shape2D shape, int col) {
         super(position, shape);
-        addComponent(new VisualShapeComponent(shape, col));
+        addComponent(new VisualComponent(shape, col));
     }
 
 

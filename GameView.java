@@ -30,7 +30,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         setFocusable(true);
 
-        game = new EngineCore();
+        game = new EngineCore(context);
     }
 
 

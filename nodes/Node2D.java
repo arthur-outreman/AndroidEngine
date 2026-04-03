@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 
 import androidx.annotation.Nullable;
 
+import com.example.engine.EngineCore;
 import com.example.engine.Graphics;
 import com.example.engine.components.Component;
 import com.example.engine.dataTypes.Angle;
@@ -19,17 +20,29 @@ public class Node2D {
     VARIABLES
     ================================ */
 
+    public EngineCore root;
     private boolean inQueueToDeletion = false;
     public @Nullable Node2D parent = null;
     public ArrayList<Node2D> children;
     public ArrayList<Component> components;
     public ArrayList<String> groups;
     public Transform transform;
+    public String name = "";
 
 
     /* ================================
     CONSTRUCTEURS
     ================================ */
+
+    // Constructeur des Scenes
+    public Node2D(EngineCore root) {
+        children = new ArrayList<>();
+        components = new ArrayList<>();
+        groups = new ArrayList<>();
+
+        transform = Transform.ZERO();
+        this.root = root;
+    }
 
     //
     public Node2D() {
@@ -38,7 +51,6 @@ public class Node2D {
         groups = new ArrayList<>();
 
         transform = Transform.ZERO();
-
     }
 
     //
@@ -81,6 +93,7 @@ public class Node2D {
         if(child.parent == null) {
             children.add(child);
             child.parent = this;
+            child.root = root;
         }
     }
 
@@ -96,6 +109,7 @@ public class Node2D {
         if(component.parent == null) {
             components.add(component);
             component.parent = this;
+            component.onAttach();
         }
     }
 
@@ -103,10 +117,7 @@ public class Node2D {
 
     //
     public boolean isInGroup(String groupName) {
-        for(int i=0; i< groups.size(); i++) {
-            if(groups.get(i).equals(groupName)) return true;
-        }
-        return false;
+        return groups.contains(groupName);
     }
 
     //
@@ -126,6 +137,21 @@ public class Node2D {
 
     //
     public void signal(String signal, String name) {}
+
+    //
+    public void sendSignal(String signal) {
+        if(parent==null) return;
+        parent.signal(signal, name);
+    }
+
+    //
+    public void signal(String signal, String name, Node2D arg) {}
+
+    //
+    public void sendSignal(String signal, Node2D arg) {
+        if(parent==null) return;
+        parent.signal(signal, name, arg);
+    }
 
 
     /* ================================

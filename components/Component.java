@@ -25,6 +25,8 @@ public class Component {
     //
     Component() {}
 
+    //
+    public void onAttach() {}
 
     /* ================================
     SIGNAL

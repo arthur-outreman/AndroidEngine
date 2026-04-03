@@ -1,7 +1,6 @@
 package com.example.engine.nodes;
 
 import com.example.engine.components.CollisionComponent;
-import com.example.engine.components.VisualShapeComponent;
 import com.example.engine.dataTypes.Vect2;
 import com.example.engine.shapes.Shape2D;
 
@@ -11,7 +10,7 @@ public class CollisionObject2D extends Node2D {
     VARIABLES
     ================================ */
 
-    private CollisionComponent collider;
+    public CollisionComponent collider;
 
 
     /* ================================
@@ -27,7 +26,7 @@ public class CollisionObject2D extends Node2D {
 
 
     /* ================================
-    METHODES
+    COLLISIONS
     ================================ */
 
     //
