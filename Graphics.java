@@ -24,6 +24,9 @@ public class Graphics {
 
     public Graphics() {
         paint.setStrokeWidth(10);
+        paint.setAntiAlias(true);
+        paint.setTextAlign(Paint.Align.CENTER);
+
     }
 
 
@@ -67,5 +70,25 @@ public class Graphics {
     public void drawCircle(Canvas canvas, Vect2 position, float rayon, int col) {
         paint.setColor(col);
         canvas.drawCircle(position.x, position.y, rayon, paint);
+    }
+
+
+    /* ================================
+    DRAW TEXT
+    ================================ */
+
+    //
+    public void drawText(Canvas canvas, String str, Vect2 position, float textSize, int baseCol, int strokeCol) {
+        paint.setTextSize(textSize);
+
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(strokeCol);
+
+        canvas.drawText(str, position.x, position.y+(textSize/3), paint);
+
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(baseCol);
+
+        canvas.drawText(str, position.x, position.y+(textSize/3), paint);
     }
 }

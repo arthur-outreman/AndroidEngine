@@ -211,7 +211,7 @@ public class Node2D {
     }
 
     //
-    public void renderSelf(Canvas canvas, Graphics graphics) {
+    public void renderComponents(Canvas canvas, Graphics graphics) {
         for(int i=0; i<components.size(); i++) {
             components.get(i).render(canvas, graphics);
         }
@@ -219,7 +219,7 @@ public class Node2D {
 
     //
     public void render(Canvas canvas, Graphics graphics) {
-        renderSelf(canvas, graphics);
+        renderComponents(canvas, graphics);
         renderChildren(canvas, graphics);
     }
 

@@ -1,6 +1,7 @@
 package com.example.engine.components;
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import androidx.annotation.Nullable;

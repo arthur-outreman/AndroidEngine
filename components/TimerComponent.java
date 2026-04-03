@@ -14,7 +14,7 @@ public class TimerComponent extends Component {
     CONSTRUCTEURS
     ================================ */
 
-    TimerComponent(float maxTime, boolean autoStart, boolean oneShot) {
+    public TimerComponent(float maxTime, boolean autoStart, boolean oneShot) {
         this.time = maxTime;
         this.maxTime = maxTime;
         this.running = autoStart;
@@ -41,11 +41,12 @@ public class TimerComponent extends Component {
     ================================ */
 
     //
+    @Override
     public void update(float deltaTime) {
         if(running) time-=deltaTime;
         if(time <= 0f) {
             signal("TimerTimeOut");
-            time = maxTime;
+            time += maxTime;
             running = oneShot;
         }
     }

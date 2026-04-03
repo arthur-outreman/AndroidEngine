@@ -1,5 +1,6 @@
 package com.example.engine.components;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.engine.dataTypes.Transform;
@@ -30,6 +31,7 @@ public class ClickDetectorComponent extends Component {
     ================================ */
 
     //
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN) {
             Transform t = (parent!=null)? parent.getGlobalTransform():Transform.ZERO();

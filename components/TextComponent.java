@@ -1,28 +1,28 @@
 package com.example.engine.components;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 
 import com.example.engine.Graphics;
-import com.example.engine.shapes.Shape2D;
+import com.example.engine.dataTypes.Vect2;
 
-public class VisualComponent extends Component {
+public class TextComponent extends Component {
 
     /* ================================
     VARIABLES
     ================================ */
 
-    private Shape2D shape;
-    public int col;
+    Vect2 position;
+    String text;
 
 
     /* ================================
     CONSTRUCTEURS
     ================================ */
 
-    //
-    public VisualComponent(Shape2D shape, int col) {
-        this.shape = shape;
-        this.col = col;
+    public TextComponent(Vect2 position, String text) {
+        this.position = position;
+        this.text = text;
     }
 
 
@@ -33,8 +33,10 @@ public class VisualComponent extends Component {
     //
     @Override
     public void render(Canvas canvas, Graphics graphics) {
-        if(parent != null) {
-            shape.render(canvas, graphics, parent.getGlobalTransform(), col);
-        }
+        if(parent==null) return;
+        graphics.drawText(
+                canvas, text,
+                Vect2.SUM(position, parent.getGlobalTransform().position),
+                32, Color.WHITE, Color.BLACK);
     }
 }

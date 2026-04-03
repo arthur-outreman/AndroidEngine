@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
 
-import com.example.engine.components.SoundPlayerComponent;
-import com.example.engine.dataTypes.Vect2;
 import com.example.engine.nodes.Node2D;
 
 public class EngineCore {
