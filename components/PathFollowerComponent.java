@@ -52,6 +52,7 @@ public class PathFollowerComponent extends Component {
                 index %= path.points.length;
             } else if(index >= path.points.length) {
                 signal("PathFollowerEnded");
+                index--;
                 return;
             }
 
