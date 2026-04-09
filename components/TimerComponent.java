@@ -14,6 +14,7 @@ public class TimerComponent extends Component {
     CONSTRUCTEURS
     ================================ */
 
+    //
     public TimerComponent(float maxTime, boolean autoStart, boolean oneShot) {
         this.time = maxTime;
         this.maxTime = maxTime;
@@ -47,7 +48,7 @@ public class TimerComponent extends Component {
         if(time <= 0f) {
             signal("TimerTimeOut");
             time += maxTime;
-            running = oneShot;
+            running = !oneShot;
         }
     }
 }
