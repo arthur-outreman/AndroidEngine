@@ -22,6 +22,12 @@ public class TimerComponent extends Component {
         this.oneShot = oneShot;
     }
 
+    //
+    public TimerComponent(float maxTime, boolean autoStart, boolean oneShot, String name) {
+        this(maxTime, autoStart, oneShot);
+        this.name = name;
+    }
+
 
     /* ================================
     METHODES

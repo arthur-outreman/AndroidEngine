@@ -45,6 +45,20 @@ public class Button2D extends Node2D {
         addComponent(new ClickDetectorComponent(shape));
     }
 
+    //
+    public Button2D(Vect2 position, Vect2 size, String text, String name) {
+        this(position, size, text);
+        this.name = name;
+    }
+
+
+    /* ================================
+    METHODES
+    ================================ */
+
+    //
+    public void onClicked() {}
+
 
     /* ================================
     SIGNAL
@@ -53,12 +67,15 @@ public class Button2D extends Node2D {
     //
     @Override
     public void signal(String signal, String name) {
+
         if(signal.equals("TimerTimeOut")) {
             visual.col = baseColor;
-            sendSignal("ButtonClicked");
         } else if(signal.equals("ClickDetectorClicked")) {
             visual.col = clickColor;
             clickTimer.start();
+
+            sendSignal("ButtonClicked");
+            onClicked();
         }
     }
 }

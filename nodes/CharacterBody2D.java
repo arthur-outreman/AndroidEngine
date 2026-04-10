@@ -18,9 +18,8 @@ public class CharacterBody2D extends CollisionObject2D {
     ================================ */
 
     //
-    public CharacterBody2D(Vect2 position, Shape2D shape, int col) {
+    public CharacterBody2D(Vect2 position, Shape2D shape) {
         super(position, shape);
-        addComponent(new VisualComponent(shape, col));
     }
 
 

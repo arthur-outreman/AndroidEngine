@@ -1,9 +1,11 @@
 package com.example.engine;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 
 import com.example.engine.dataTypes.Vect2;
 
@@ -90,5 +92,15 @@ public class Graphics {
         paint.setColor(baseCol);
 
         canvas.drawText(str, position.x, position.y+(textSize/3), paint);
+    }
+
+
+    /* ================================
+    DRAW BITMAP
+    ================================ */
+
+    //
+    public void drawSprite(Canvas canvas, Bitmap sprite, Vect2 position) {
+        canvas.drawBitmap(sprite, position.x, position.y, paint);
     }
 }
