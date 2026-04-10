@@ -16,7 +16,7 @@ public final class SAT {
         float minA = axis.dot(a[0]);
         float maxA = minA;
 
-        for (int i = 1; i < a.length; i++) {
+        for(int i=1; i<a.length; i++) {
             float p = axis.dot(a[i]);
             if (p < minA) minA = p;
             if (p > maxA) maxA = p;
@@ -25,13 +25,13 @@ public final class SAT {
         float minB = axis.dot(b[0]);
         float maxB = minB;
 
-        for (int i = 1; i < b.length; i++) {
+        for(int i=1; i<b.length; i++) {
             float p = axis.dot(b[i]);
-            if (p < minB) minB = p;
-            if (p > maxB) maxB = p;
+            if(p < minB) minB = p;
+            if(p > maxB) maxB = p;
         }
 
-        return !(maxA < minB || maxB < minA);
+        return !(maxA<minB || maxB<minA);
     }
 
     //
@@ -40,10 +40,10 @@ public final class SAT {
         float minPoly = axis.dot(poly[0]);
         float maxPoly = minPoly;
 
-        for (int i = 1; i < poly.length; i++) {
+        for(int i=1; i<poly.length; i++) {
             float p = axis.dot(poly[i]);
-            if (p < minPoly) minPoly = p;
-            if (p > maxPoly) maxPoly = p;
+            if(p < minPoly) minPoly = p;
+            if(p > maxPoly) maxPoly = p;
         }
 
         float centerProj = axis.dot(center);
@@ -51,13 +51,8 @@ public final class SAT {
         float minCircle = centerProj - radius;
         float maxCircle = centerProj + radius;
 
-        return !(maxPoly < minCircle || maxCircle < minPoly);
+        return !(maxPoly<minCircle || maxCircle<minPoly);
     }
-
-
-    /* ================================
-    POLYGON ON POLYGON
-    ================================ */
 
     //
     public static boolean polygonOnPolygon(PolygonShape2D shape1, PolygonShape2D shape2) {
@@ -89,11 +84,6 @@ public final class SAT {
         return true;
     }
 
-
-    /* ================================
-    POLYGON ON CIRCLE
-    ================================ */
-
     //
     public static boolean polygonOnCircle(PolygonShape2D polygon, CircleShape2D circle) {
 
@@ -101,8 +91,7 @@ public final class SAT {
         Vect2 center = circle.transformedCenter;
         float radius = circle.radius;
 
-        for (int i=0; i<poly.length; i++) {
-
+        for(int i=0; i<poly.length; i++) {
             Vect2 p1 = poly[i];
             Vect2 p2 = poly[(i+1) % poly.length];
 
@@ -110,20 +99,20 @@ public final class SAT {
             Vect2 axis = edge.perp();
             axis.normalize();
 
-            if (!circleOverlap(axis, poly, center, radius)) return false;
+            if(!circleOverlap(axis, poly, center, radius)) return false;
         }
 
         Vect2 closest = poly[0];
         float minDist = Float.MAX_VALUE;
 
-        for (int i=0; i<poly.length; i++) {
-            float dx = center.x - poly[i].x;
-            float dy = center.y - poly[i].y;
+        for(Vect2 vect2 : poly) {
+            float dx = center.x - vect2.x;
+            float dy = center.y - vect2.y;
             float dist = dx * dx + dy * dy;
 
-            if (dist < minDist) {
+            if(dist < minDist) {
                 minDist = dist;
-                closest = poly[i];
+                closest = vect2;
             }
         }
 
