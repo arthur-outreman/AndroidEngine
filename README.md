@@ -1,96 +1,21 @@
-# AndroidEngine (reforged) - Documentation
+# AndroidEngine (reforged)
 
-## MainActivity
+## Moteur de jeu 2D rudimentaire pour Android Studio
 
-### void onCreate(Bundle savedInstanceState)
-Initialise l’activité Android et lance le moteur via GameView.
+### A propos :
 
----
-
-## GameView
-
-### void update(float deltaTime)
-Met à jour la logique du moteur (scène active + nodes).
-
-**Paramètres :**
-- `deltaTime` : temps écoulé depuis la dernière frame (en secondes)
+&emsp; Jusqu'ici le projet implémente le render et les collisions d'objects 2D grâce à un system de Node similaire à celui de Godot.
+<br><br>
+&emsp; Le moteur est séparé entre les Nodes qui contienent les données *(un Transform2D, une liste de Node2D enfants et une liste de component)* et les Components qui implémentent la logique.
+<br><br>
+&emsp; Il y a un système de scènes intégré sous la forme d'une liste de pointeurs vers des Nodes racines qui contienent toute l'arborescence d'une scène.
 
 ---
 
-### void render(Canvas canvas)
-Rend la scène active sur le canvas.
+### Utilisation :
 
-**Paramètres :**
-- `canvas` : surface de dessin Android
-
----
-
-### boolean onTouchEvent(MotionEvent event)
-Transmet les événements tactiles au moteur.
-
-**Paramètres :**
-- `event` : événement tactile Android
-
-**Retour :**
-- `true` si l’événement est consommé, sinon `false`
-
----
-
-### void surfaceCreated(SurfaceHolder holder)
-Démarre la boucle de jeu.
-
----
-
-### void surfaceDestroyed(SurfaceHolder holder)
-Arrête proprement la boucle de jeu.
-
----
-
-### void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
-(Non utilisé mais nécéssaire à l'implementation)
-
----
-
-## MainThread
-
-### void setRunning(boolean running)
-Démarre ou arrête la boucle de jeu.
-
-**Paramètres :**
-- `running` : état du thread
-
----
-
-### void run()
-Boucle principale du moteur :
-- calcule deltaTime
-- appelle update()
-- appelle render()
-- limite les FPS
-
----
-
-## EngineCore
-
-### void update(float deltaTime)
-Gestion de l'actualisation.
-
-**Paramètres :**
-- `deltaTime` : temps entre deux frames (en secondes)
-
----
-
-### void render(Canvas canvas)
-Gestion de l'affichage.
-
-**Paramètres :**
-- `canvas` : surface de rendu Android
-
----
-
-### void onTouchEvent(MotionEvent event)
-Gestion des évènements.
-
-**Paramètres :**
-- `event` : événement tactile Android
-
+&emsp; Vous êtes libre de réutiliser et de modifier le code source du moteur
+<br><br>
+&emsp; Pour utiliser **AndroidEngine** comme base de projet il vous suffit de créer une nouvelle EmptyViewActivity en langage JAVA sur Android Studio et de copier tous les fichiers sources dans le dossier Java.
+<br><br>
+&emsp; Si vous ne voulez pas avoir a changer tous les imports il est impératif que le nom du package soit  : "com.example.engine".
