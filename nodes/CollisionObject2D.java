@@ -1,5 +1,7 @@
 package com.example.engine.nodes;
 
+import android.util.Log;
+
 import com.example.engine.components.CollisionComponent;
 import com.example.engine.dataTypes.Vect2;
 import com.example.engine.shapes.Shape2D;
@@ -38,8 +40,8 @@ public class CollisionObject2D extends Node2D {
                 return true;
             }
         }
-        for(int i = 0; i < node.children.size(); i++) {
-            if(collideWithTree(node.children.get(i))) return true;
+        for(Node2D child : node.children) {
+            if(collideWithTree(child)) return true;
         }
         return false;
     }

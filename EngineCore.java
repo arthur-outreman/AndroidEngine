@@ -1,19 +1,11 @@
 package com.example.engine;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
 
-import com.example.engine.components.SpriteComponent;
-import com.example.engine.dataTypes.Vect2;
-import com.example.engine.nodes.CharacterBody2D;
-import com.example.engine.nodes.CollisionObject2D;
 import com.example.engine.nodes.Node2D;
-import com.example.engine.shapes.Shape2D;
 
 public class EngineCore {
 

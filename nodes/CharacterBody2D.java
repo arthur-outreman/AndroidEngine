@@ -1,5 +1,7 @@
 package com.example.engine.nodes;
 
+import android.util.Log;
+
 import com.example.engine.components.VisualComponent;
 import com.example.engine.dataTypes.Vect2;
 import com.example.engine.shapes.Shape2D;
@@ -30,6 +32,8 @@ public class CharacterBody2D extends CollisionObject2D {
     //
     public void moveAndCollide() {
         transform.position = transform.position.add(velocity);
-        if(collideWithTree(getTree())) transform.position = transform.position.sub(velocity);
+        if(collideWithTree(getTree())) {
+            transform.position = transform.position.sub(velocity);
+        }
     }
 }

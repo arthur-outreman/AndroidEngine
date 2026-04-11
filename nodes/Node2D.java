@@ -1,6 +1,7 @@
 package com.example.engine.nodes;
 
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import androidx.annotation.Nullable;
@@ -23,8 +24,8 @@ public class Node2D {
     public EngineCore root;
     private boolean inQueueToDeletion = false;
     public @Nullable Node2D parent = null;
-    public ArrayList<Node2D> children;
-    public ArrayList<Component> components;
+    public Node2D[] children;
+    public Component[] components;
     public ArrayList<String> groups;
     public Transform transform;
     public String name = "";
@@ -34,32 +35,24 @@ public class Node2D {
     CONSTRUCTEURS
     ================================ */
 
-    // Constructeur des Scenes
-    public Node2D(EngineCore root) {
-        children = new ArrayList<>();
-        components = new ArrayList<>();
+    //
+    public Node2D(Vect2 position) {
+        children = new Node2D[0];
+        components = new Component[0];
         groups = new ArrayList<>();
 
-        transform = Transform.ZERO();
-        this.root = root;
+        transform = new Transform(position, Angle.ZERO());
     }
 
     //
     public Node2D() {
-        children = new ArrayList<>();
-        components = new ArrayList<>();
-        groups = new ArrayList<>();
-
-        transform = Transform.ZERO();
+        this(Vect2.ZERO());
     }
 
-    //
-    public Node2D(Vect2 position) {
-        children = new ArrayList<>();
-        components = new ArrayList<>();
-        groups = new ArrayList<>();
-
-        transform = new Transform(position, Angle.ZERO());
+    // Constructeur des Scenes
+    public Node2D(EngineCore root) {
+        this();
+        this.root = root;
     }
 
 
@@ -91,7 +84,12 @@ public class Node2D {
     //
     public void addChild(Node2D child) {
         if(child.parent == null) {
-            children.add(child);
+            Node2D[] newChildren = new Node2D[children.length+1];
+
+            System.arraycopy(children, 0, newChildren, 0, children.length);
+            newChildren[children.length] = child;
+            children = newChildren;
+
             child.parent = this;
             child.root = root;
         }
@@ -99,7 +97,18 @@ public class Node2D {
 
     //
     public void removeChild(Node2D child) {
-        if(children.remove(child)) child.parent = null;
+        for(int i=0; i<children.length; i++) {
+            if(!children[i].equals(child)) {
+                continue;
+            }
+            for(int j=i; j<children.length-1; j++) {
+                children[j] = children[j+1];
+            }
+            Node2D[] newChildren = new Node2D[children.length-1];
+            System.arraycopy(children, 0, newChildren, 0, children.length-1);
+            children = newChildren;
+            return;
+        }
     }
 
     // COMPONENT
@@ -107,7 +116,12 @@ public class Node2D {
     //
     public void addComponent(Component component) {
         if(component.parent == null) {
-            components.add(component);
+            Component[] newComps = new Component[components.length+1];
+
+            System.arraycopy(components, 0, newComps, 0, components.length);
+            newComps[components.length] = component;
+            components = newComps;
+
             component.parent = this;
             component.onAttach();
         }
@@ -160,11 +174,11 @@ public class Node2D {
 
     //
     public boolean onTouchEvent(MotionEvent event) {
-        for(int i=0; i<components.size(); i++) {
-            if(components.get(i).onTouchEvent(event)) return true;
+        for(Component component : components) {
+            if (component.onTouchEvent(event)) return true;
         }
-        for(int i=0; i<children.size(); i++) {
-            if(children.get(i).onTouchEvent(event)) return true;
+        for(Node2D child : children) {
+            if (child.onTouchEvent(event)) return true;
         }
         return false;
     }
@@ -176,15 +190,15 @@ public class Node2D {
 
     //
     public void updateChildren(float deltaTime) {
-        for(int i=0; i<children.size(); i++) {
-            children.get(i).update(deltaTime);
+        for(Node2D child : children) {
+            child.update(deltaTime);
         }
     }
 
     //
     public void updateComponents(float deltaTime) {
-        for(int i=0; i<components.size(); i++) {
-            components.get(i).update(deltaTime);
+        for(Component component : components) {
+            component.update(deltaTime);
         }
     }
 
@@ -205,15 +219,15 @@ public class Node2D {
 
     //
     public void renderChildren(Canvas canvas, Graphics graphics) {
-        for(int i=0; i<children.size(); i++) {
-            children.get(i).render(canvas, graphics);
+        for(Node2D child : children) {
+            child.render(canvas, graphics);
         }
     }
 
     //
     public void renderComponents(Canvas canvas, Graphics graphics) {
-        for(int i=0; i<components.size(); i++) {
-            components.get(i).render(canvas, graphics);
+        for(Component component : components) {
+            component.render(canvas, graphics);
         }
     }
 
@@ -230,11 +244,10 @@ public class Node2D {
 
     //
     public void cleanTree() {
+        for (Node2D child : children) child.cleanTree();
         if(inQueueToDeletion) {
             if(parent != null) parent.removeChild(this);
             parent = null;
-            return;
         }
-        for(int i=0; i< children.size(); i++) children.get(i).cleanTree();
     }
 }

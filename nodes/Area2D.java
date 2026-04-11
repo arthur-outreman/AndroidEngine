@@ -82,9 +82,7 @@ public class Area2D extends Node2D {
             }
         }
 
-        for(int i = 0; i < node.children.size(); i++) {
-            collideWithTree(node.children.get(i));
-        }
+        for(Node2D child : node.children) {collideWithTree(child);}
     }
 
 
