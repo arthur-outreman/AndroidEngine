@@ -6,7 +6,7 @@
 
 &emsp; Jusqu'ici le projet implémente le render et les collisions d'objects 2D grâce à un system de Node similaire à celui de Godot.
 <br><br>
-&emsp; Le moteur est séparé entre les Nodes qui contienent les données *(un Transform2D, une liste de Node2D enfants et une liste de component)* et les Components qui implémentent la logique.
+&emsp; Le moteur est séparé entre les Nodes qui contiennent les données *(un Transform2D, une liste de Node2D enfants et une liste de component)* et les Components qui implémentent la logique.
 <br><br>
 &emsp; Il y a un système de scènes intégré sous la forme d'une liste de pointeurs vers des Nodes racines qui contienent toute l'arborescence d'une scène.
 
