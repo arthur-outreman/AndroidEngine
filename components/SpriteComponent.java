@@ -13,7 +13,7 @@ public class SpriteComponent extends Component {
     ================================ */
 
     public Bitmap[][] spriteFrames;
-    private Vect2 frameCoord;
+    public Vect2 frameCoord;
 
 
     /* ================================
