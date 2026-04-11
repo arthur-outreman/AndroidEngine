@@ -19,3 +19,11 @@
 &emsp; Pour utiliser **AndroidEngine** comme base de projet il vous suffit de créer une nouvelle EmptyViewActivity en langage JAVA sur Android Studio et de copier tous les fichiers sources dans le dossier Java.
 <br><br>
 &emsp; Si vous ne voulez pas avoir a changer tous les imports il est impératif que le nom du package soit  : "com.example.engine".
+
+---
+
+### Problèmes connus :
+
+- Les rotations de Node ne s'appliquent pas aux SpriteComponent.
+<br><br>
+- Aucun moyen simple de flipH un spriteComponent.
