@@ -34,8 +34,8 @@ public class CircleShape2D extends Shape2D {
     //
     public CircleShape2D(float rayon, boolean centered) {
         this.radius = rayon;
-        center = centered? new Vect2(rayon, rayon):Vect2.ZERO();
-        transformedCenter = centered? new Vect2(rayon, rayon):Vect2.ZERO();
+        center = centered? Vect2.ZERO():new Vect2(rayon, rayon);
+        transformedCenter = centered? Vect2.ZERO():new Vect2(rayon, rayon);
         generateApproximateRect(Transform.ZERO());
     }
 

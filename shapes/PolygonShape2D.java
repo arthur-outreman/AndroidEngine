@@ -152,14 +152,6 @@ public class PolygonShape2D extends Shape2D {
 
         generateTransform(t);
 
-        Path path = new Path();
-        path.moveTo(transformedPoints[0].x, transformedPoints[0].y);
-
-        for (int i=1; i<nb_points; i++) {
-            path.lineTo(transformedPoints[i].x, transformedPoints[i].y);
-        }
-        path.close();
-
-        graphics.drawPath(canvas, path, col);
+        graphics.drawPolygon(canvas, transformedPoints, col);
     }
 }

@@ -5,7 +5,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
 
+import com.example.engine.components.PathFollowerComponent;
+import com.example.engine.components.VisualComponent;
+import com.example.engine.dataTypes.Path2D;
+import com.example.engine.dataTypes.Vect2;
 import com.example.engine.nodes.Node2D;
+import com.example.engine.nodes.Turret;
+import com.example.engine.shapes.Shape2D;
 
 public class EngineCore {
 

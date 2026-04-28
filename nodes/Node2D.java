@@ -22,7 +22,7 @@ public class Node2D {
     ================================ */
 
     public EngineCore root;
-    private boolean inQueueToDeletion = false;
+    public boolean inQueueToDeletion = false;
     public @Nullable Node2D parent = null;
     public Node2D[] children;
     public Component[] components;

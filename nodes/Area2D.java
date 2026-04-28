@@ -1,8 +1,11 @@
 package com.example.engine.nodes;
 
+import android.graphics.Color;
+
 import androidx.annotation.Nullable;
 
 import com.example.engine.components.CollisionComponent;
+import com.example.engine.components.VisualComponent;
 import com.example.engine.dataTypes.Vect2;
 import com.example.engine.shapes.Shape2D;
 
@@ -28,6 +31,8 @@ public class Area2D extends Node2D {
         super(position);
         collider = new CollisionComponent(shape);
         addComponent(collider);
+
+        addComponent(new VisualComponent(shape, Color.argb(10, 0, 0, 255)));
     }
 
     //
@@ -93,9 +98,8 @@ public class Area2D extends Node2D {
     //
     @Override
     public void updateSelf(float delta) {
-
         for(int i=0; i<bodyInArea.size(); i++) {
-            if(!collider.overlap(bodyInArea.get(i).collider)) {
+            if(bodyInArea.get(i).inQueueToDeletion || !collider.overlap(bodyInArea.get(i).collider)) {
                 sendSignal("AreaShapeExited");
                 bodyInArea.remove(i--);
             }
